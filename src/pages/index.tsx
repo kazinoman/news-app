@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { NewsArticle, NewsResponse } from "@/models/newArticales";
+import { NewsArticleEnties } from "@/components/newsArticles";
 
 interface BreakingNewsPageProps {
   newsArticles: NewsArticle[];
@@ -19,7 +20,7 @@ export default function Home({ newsArticles }: BreakingNewsPageProps) {
 
       <main className="">
         <h1>Breaking News</h1>
-        {JSON.stringify(newsArticles)}
+        <NewsArticleEnties article={newsArticles[0]} />
       </main>
     </>
   );

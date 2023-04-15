@@ -8,10 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>News app</title>
-        <meta
-          name="description"
-          content="Created by next app. makign news apps."
-        />
+        <meta name="description" content="Created by next app. makign news apps." />
       </Head>
 
       <Layout>
