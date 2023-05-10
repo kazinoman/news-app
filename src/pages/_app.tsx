@@ -5,7 +5,7 @@ import { Layout } from "@/layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div className="bg-slate-700 z-0">
       <Head>
         <title>News app</title>
         <meta name="description" content="Created by next app. makign news apps." />
@@ -14,6 +14,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </>
+    </div>
   );
 }

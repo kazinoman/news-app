@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { NewsArticle, NewsResponse } from "@/models/newArticales";
-import { NewsArticleEnties } from "@/components/newsArticles";
+import { NewsArticleGrid } from "@/components/newsArticles";
+
+import { getNewsData } from "@/service/NewService";
 
 interface BreakingNewsPageProps {
   newsArticles: NewsArticle[];
@@ -18,21 +20,21 @@ export default function Home({ newsArticles }: BreakingNewsPageProps) {
         <meta name="description" key="descrition" content="All the breking is here." />
       </Head>
 
-      <main className="">
-        <h1>Breaking News</h1>
-        <NewsArticleEnties article={newsArticles[0]} />
+      <main className="flex flex-col gap-5 items-start">
+        <NewsArticleGrid articles={newsArticles} />
       </main>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps<BreakingNewsPageProps> = async () => {
-  const res = await fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=" + process.env.NEWS_API_KEY);
-  const newsResponse: NewsResponse = await res.json();
+  // const res = await fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=" + process.env.NEWS_API_KEY);
+  // const newsResponse: NewsResponse = await res.json();
+  const newsData: NewsResponse = await getNewsData();
 
   return {
     props: {
-      newsArticles: newsResponse.articles,
+      newsArticles: newsData.data.articles,
     },
   };
 };

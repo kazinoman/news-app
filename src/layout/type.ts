@@ -1,3 +1,3 @@
 export type Props = {
-  children: React.ReactNode | React.ReactNode[] | (() => JSX.Element);
+  children: React.ReactNode | React.ReactNode[];
 };
