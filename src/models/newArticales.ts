@@ -15,3 +15,11 @@ export interface NewsResponse {
     totalResult: number;
   };
 }
+
+export interface SearchNewsResponse {
+  data: {
+    articles: NewsArticle[];
+    status: string;
+    totalResult: number;
+  };
+}

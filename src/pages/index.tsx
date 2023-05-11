@@ -20,7 +20,8 @@ export default function Home({ newsArticles }: BreakingNewsPageProps) {
         <meta name="description" key="descrition" content="All the breking is here." />
       </Head>
 
-      <main className="flex flex-col gap-5 items-start">
+      <main className="">
+        <p className="font-semibold text-3xl">Breaking News</p>
         <NewsArticleGrid articles={newsArticles} />
       </main>
     </>

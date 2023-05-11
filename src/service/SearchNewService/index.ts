@@ -1,7 +1,7 @@
 import Http from "../server";
-import { NewsResponse } from "@/models/newArticales";
+import { SearchNewsResponse } from "@/models/newArticales";
 
-const getSearchNews = () => {
-  const res = Http.get("");
+export const getSearchNews = async (search: string) => {
+  const res: SearchNewsResponse = await Http.get(`/everything?q=${search}&apiKey=${process.env.NEWS_API_KEY}`);
   return res;
 };

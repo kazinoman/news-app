@@ -8,14 +8,13 @@ interface NewsArticlesGridProps {
 
 const NewsArticleGrid = ({ articles }: NewsArticlesGridProps): JSX.Element => {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 w-[100%]">
-      <p className="font-semibold text-3xl">Breaking News</p>
-      <div className="flex flex-row gap-5 flex-wrap justify-center items-start">
-        {articles.map((data) => {
+    <div className="p-0">
+      <div className="flex flex-row gap-5 flex-wrap justify-center ">
+        {articles?.map((data: NewsArticle, index) => {
           return (
-            <>
+            <div key={index}>
               <NewsArticleEnties article={data} />
-            </>
+            </div>
           );
         })}
       </div>
