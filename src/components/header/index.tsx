@@ -29,27 +29,35 @@ const Header = (): JSX.Element => {
 
   const stringValue: string = selectedValue ?? "";
   return (
-    <div className="py-5 flex flex-row gap-5 bg-zinc-500 text-white items-center">
-      <Link href="/">
-        <h2>News App</h2>
-      </Link>
-      <Link href="/search">
-        <h2>Search</h2>
-      </Link>
-      <select value={stringValue} onChange={handleChange} className="bg-slate-500 p-2 rounded-md">
-        <option value="" disabled>
-          Select an option
-        </option>
-        {data.map((data) => {
-          return (
-            <>
-              <option value={data.value} key={data.value}>
-                {data.label}
-              </option>
-            </>
-          );
-        })}
-      </select>
+    <div
+      className="py-5 bg-[#333c50] text-white px-3"
+      style={{
+        backgroundColor: "#A9C9FF",
+        backgroundImage: "radial-gradient( circle 815px at 23.4% -21.8%,  rgba(9,29,85,1) 0.2%, rgba(0,0,0,1) 100.2% )",
+      }}
+    >
+      <div className="flex-row gap-5 text-white items-center px-3 hidden sm:flex">
+        <Link href="/">
+          <h2 className="text-lg font-medium hover:text-slate-300">Home</h2>
+        </Link>
+        <Link href="/search">
+          <h2 className="text-lg font-medium hover:text-slate-300">Search</h2>
+        </Link>
+        <select value={stringValue} onChange={handleChange} className=" bg-gray-100 border rounded py-2 px-4 mt-1 text-black font-medium">
+          <option value="" disabled className=" p-5 mt-4">
+            Select an option
+          </option>
+          {data.map((data) => {
+            return (
+              <>
+                <option value={data.value} key={data.value} className="  p-5 mt-4">
+                  {data.label}
+                </option>
+              </>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 };

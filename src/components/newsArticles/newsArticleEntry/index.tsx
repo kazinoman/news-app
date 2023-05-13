@@ -1,7 +1,8 @@
 import { NewsArticle } from "@/models/newArticales";
 import React from "react";
-import { Avatar } from "antd";
+import dayjs from "dayjs";
 import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import Link from "next/link";
 
 // const { Meta } = Card;
 
@@ -9,36 +10,39 @@ interface NewsArticleEntryProps {
   article: NewsArticle;
 }
 
-export const NewsArticleEnties: React.FC<NewsArticleEntryProps> = ({ article: { author, content, description, publishAt, title, url, urlToImage } }: NewsArticleEntryProps): JSX.Element => {
+export const NewsArticleEnties: React.FC<NewsArticleEntryProps> = ({ article: { author, content, description, publishedAt, title, url, urlToImage } }: NewsArticleEntryProps): JSX.Element => {
   const validImgUrl = urlToImage?.startsWith("http://") || urlToImage?.startsWith("https://") ? urlToImage : undefined;
+  const date = dayjs(publishedAt).format("DD MMMM, YYYY");
+
+  console.log();
 
   return (
     <>
-      {/* <Card style={{ width: 300 }} cover={<img alt={`${urlToImage}`} src={`${urlToImage}`} />}>
-        <Meta avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />} title={`${title}`} description={`${description}`} />
-      </Card> */}
-      <Card shadow="sm" padding="lg" radius="md" withBorder sx={{ width: "300px", height: "500px" }}>
-        <Card.Section>
-          <Image src={`${urlToImage}`} height={160} alt="Norway" />
-        </Card.Section>
+      <div className="font-[ubuntu] flex flex-col xs:w-[240px] md:w-[300px] bg-white h-[360px] rounded-md hover:scale-105 hover:rounded-lg transition duration-500">
+        <Image src={`${validImgUrl}`} height={180} alt="Norway" className="rounded-t-lg overflow-hidden" />
 
-        <Group position="apart" mt="md" mb="xs">
-          <Text weight={500}>{title}</Text>
-          {author && (
-            <Badge color="pink" variant="light">
-              {author}
-            </Badge>
-          )}
-        </Group>
+        <div className="flex flex-col justify-between p-2 h-full">
+          <h1 className="font-semibold text-sm line-clamp-2">{title}</h1>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-row-reverse justify-between">
+              <h2 className="font-semibold text-[0.8rem] text-black">{date}</h2>
+              {author && (
+                <div className="px-1 bg-[#e85d26] border-3 border-orange-200 rounded-lg flex w-[max-content]">
+                  <h2 className="font-semibold text-[0.8rem] text-white">{author.slice(0, 20)}</h2>
+                </div>
+              )}
+            </div>
 
-        <Text size="sm" color="dimmed">
-          {description}
-        </Text>
+            <div className="py-0 line-clamp-4">
+              <h2 className="font-normal text-sm font-[ubuntu]">{description}</h2>
+            </div>
+          </div>
 
-        <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-          Read details
-        </Button>
-      </Card>
+          <Link href={`${url}`} target="_blank">
+            <button className="bg-[#13174C] text-white p-1 uppercase rounded-md w-full text-[0.8rem] font-medium">details</button>
+          </Link>
+        </div>
+      </div>
     </>
   );
 };

@@ -4,7 +4,7 @@ export interface NewsArticle {
   description: string;
   url: string;
   urlToImage?: string;
-  publishAt: string;
+  publishedAt: string;
   content: string;
 }
 
@@ -12,7 +12,7 @@ export interface NewsResponse {
   data: {
     articles: NewsArticle[];
     status: string;
-    totalResult: number;
+    totalResults: number;
   };
 }
 
@@ -20,6 +20,6 @@ export interface SearchNewsResponse {
   data: {
     articles: NewsArticle[];
     status: string;
-    totalResult: number;
+    totalResults: number;
   };
 }

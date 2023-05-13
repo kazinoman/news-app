@@ -24,7 +24,7 @@ const CategoryNewsPage: React.FC<CategoryProps> = ({ articles }: CategoryProps) 
 export default CategoryNewsPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const category = ["business", "entertainment", "general", "health", " science", "sports", "technology"];
+  const category = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
   const paths = category.map((slug) => ({ params: { slug } }));
 
   return {

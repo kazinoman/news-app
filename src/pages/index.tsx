@@ -1,18 +1,31 @@
-import React from "react";
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { NewsArticle, NewsResponse } from "@/models/newArticales";
+import { useRouter } from "next/router";
+
+import Pagination from "@/components/pagination";
 import { NewsArticleGrid } from "@/components/newsArticles";
 
+import { NewsArticle, NewsResponse } from "@/models/newArticales";
 import { getNewsData } from "@/service/NewService";
 
 interface BreakingNewsPageProps {
   newsArticles: NewsArticle[];
+  totalCount: number;
 }
 
-export default function Home({ newsArticles }: BreakingNewsPageProps) {
+export default function Home({ newsArticles, totalCount }: BreakingNewsPageProps) {
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    router.push({ pathname: "/", query: { pageNo: currentPage } });
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
       <Head>
@@ -23,19 +36,20 @@ export default function Home({ newsArticles }: BreakingNewsPageProps) {
       <main className="flex flex-col items-center gap-5">
         <p className="font-semibold text-3xl mt-4">Breaking News</p>
         <NewsArticleGrid articles={newsArticles} />
+        <Pagination total={totalCount} onPageChange={handlePageChange} />
       </main>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<BreakingNewsPageProps> = async () => {
-  // const res = await fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=" + process.env.NEWS_API_KEY);
-  // const newsResponse: NewsResponse = await res.json();
-  const newsData: NewsResponse = await getNewsData();
+export const getServerSideProps: GetServerSideProps<BreakingNewsPageProps> = async ({ query }: any) => {
+  const { pageNo } = query;
+  const newsData: NewsResponse = await getNewsData(pageNo);
 
   return {
     props: {
       newsArticles: newsData.data.articles,
+      totalCount: newsData.data.totalResults,
     },
   };
 };

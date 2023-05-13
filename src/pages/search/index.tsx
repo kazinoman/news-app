@@ -5,13 +5,16 @@ import { getSearchNews } from "@/service/SearchNewService";
 import { SearchNewsResponse, NewsArticle } from "@/models/newArticales";
 import Head from "next/head";
 import { NewsArticleGrid } from "@/components/newsArticles";
+import Pagination from "@/components/pagination";
 
 interface SearchComProps {
   articles: NewsArticle[];
+  totalCount: number;
 }
 
-const SearchCom: React.FC<SearchComProps> = ({ articles }: SearchComProps): JSX.Element => {
+const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchComProps): JSX.Element => {
   const [inputValue, setInputValue] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
   const router = useRouter();
 
   // onChange
@@ -23,6 +26,11 @@ const SearchCom: React.FC<SearchComProps> = ({ articles }: SearchComProps): JSX.
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push({ pathname: "search", query: { search: inputValue } });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    router.push({ pathname: "search", query: { search: inputValue, page } });
   };
 
   return (
@@ -37,6 +45,7 @@ const SearchCom: React.FC<SearchComProps> = ({ articles }: SearchComProps): JSX.
           <button className="p-2 rounded-md bg-sky-700 text-white w-[8rem] font-medium text-md">Search</button>
         </form>
         <NewsArticleGrid articles={articles} />
+        <Pagination total={totalCount} onPageChange={handlePageChange} />
       </div>
       <div></div>
     </>
@@ -46,13 +55,14 @@ const SearchCom: React.FC<SearchComProps> = ({ articles }: SearchComProps): JSX.
 export default SearchCom;
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ query }: any) => {
-  const { search } = query;
-  const res: SearchNewsResponse = await getSearchNews(search);
+  const { search, page } = query;
+  const res: SearchNewsResponse = await getSearchNews(search, page);
 
   if (res.data) {
     return {
       props: {
         articles: res.data.articles,
+        totalCount: res.data.totalResults,
       },
     };
   } else {

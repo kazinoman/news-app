@@ -5,7 +5,7 @@ import { Props } from "./type";
 
 const Layout = ({ children }: Props) => {
   return (
-    <div style={{ backgroundColor: "#fff", padding: "0px 0px 0px 0px", maxWidth: "1200px", margin: "0 auto" }}>
+    <div style={{ backgroundColor: "#f3ede3", padding: "0px 0px 0px 0px", maxWidth: "1200px", margin: "0 auto" }} className="font-['Noto Sans']">
       <Header />
       {children}
       <Footer />

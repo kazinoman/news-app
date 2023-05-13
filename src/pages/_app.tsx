@@ -5,7 +5,7 @@ import { Layout } from "@/layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="bg-slate-800 p-0 m-0 box-border w-[100vw]">
+    <div className="bg-[#13174C] p-0 m-0 box-border w-[100vw] scroll-smooth">
       <Head>
         <title>News app</title>
         <meta name="description" content="Created by next app. makign news apps." />
