@@ -19,7 +19,11 @@ export const NewsArticleEnties: React.FC<NewsArticleEntryProps> = ({ article: { 
   return (
     <>
       <div className="font-[ubuntu] flex flex-col xs:w-[240px] md:w-[300px] bg-white h-[360px] rounded-md hover:scale-105 hover:rounded-lg transition duration-500">
-        <Image src={`${validImgUrl}`} height={180} alt="Norway" className="rounded-t-lg overflow-hidden" />
+        {validImgUrl ? (
+          <Image src={`${validImgUrl}`} height={180} alt="Norway" className="rounded-t-lg overflow-hidden" />
+        ) : (
+          <Image src="https://images.unsplash.com/photo-1594322436404-5a0526db4d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1129&q=80" height={180} alt="Norway" className="rounded-t-lg overflow-hidden" />
+        )}
 
         <div className="flex flex-col justify-between p-2 h-full">
           <h1 className="font-semibold text-sm line-clamp-2">{title}</h1>

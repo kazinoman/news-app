@@ -34,7 +34,9 @@ export default function Home({ newsArticles, totalCount }: BreakingNewsPageProps
       </Head>
 
       <main className="flex flex-col items-center gap-5">
-        <p className="font-semibold text-3xl mt-4">Breaking News</p>
+        <p className="font-bold text-3xl mt-4" style={{ background: "linear-gradient(to right, #0D0DB3 22%, #C7366B 78%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          Breaking News
+        </p>
         <NewsArticleGrid articles={newsArticles} />
         <Pagination total={totalCount} onPageChange={handlePageChange} />
       </main>

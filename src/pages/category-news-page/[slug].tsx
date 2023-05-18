@@ -15,7 +15,9 @@ const CategoryNewsPage: React.FC<CategoryProps> = ({ articles }: CategoryProps) 
 
   return (
     <div className="flex flex-col items-center gap-5">
-      <h1 className="font-semibold text-3xl mt-4">{slug}</h1>
+      <h1 className="font-normal text-2xl mt-4" style={{ background: "linear-gradient(to right, #0E92B3 22%, #1A1AC7 78%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+        News category : <span className="font-bold">{slug}</span>
+      </h1>
       <NewsArticleGrid articles={articles} />
     </div>
   );

@@ -13,7 +13,7 @@ interface SearchComProps {
 }
 
 const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchComProps): JSX.Element => {
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState("everything");
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const router = useRouter();
 
@@ -28,9 +28,15 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
     router.push({ pathname: "search", query: { search: inputValue } });
   };
 
+  React.useEffect(() => {
+    router.push({ pathname: "search", query: { search: inputValue, page: currentPage } });
+  }, [currentPage, inputValue]);
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    router.push({ pathname: "search", query: { search: inputValue, page } });
+
+    console.log(page);
+    // router.push({ pathname: "search", query: { search: inputValue, page } });
   };
 
   return (
@@ -39,10 +45,12 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
         <title>News search page</title>
       </Head>
 
-      <div className="min-h-screen flex flex-col gap-6">
-        <form onSubmit={handleSubmit} className="flex flex-row gap-3 mt-5  justify-center">
-          <input type="text" className="p-3 rounded-md border border-sky-500 text-2xl" placeholder="e.g. politics, sports,..." onChange={handleInputChange} />
-          <button className="p-2 rounded-md bg-sky-700 text-white w-[8rem] font-medium text-md">Search</button>
+      <div className="min-h-screen flex flex-col gap-6 items-center">
+        <form onSubmit={handleSubmit} className="flex flex-row gap-3 mt-5 justify-center flex-1">
+          <input type="text" className="p-2 rounded-lg border border-sky-500 text-xl w-full flex-1" placeholder="e.g. politics, sports,..." onChange={handleInputChange} />
+          <button className="p-2 rounded-lg bg-sky-700 text-white w-[8rem] font-medium text-md disabled:opacity-30" disabled={inputValue.length === 0}>
+            Search
+          </button>
         </form>
         <NewsArticleGrid articles={articles} />
         <Pagination total={totalCount} onPageChange={handlePageChange} />
@@ -57,6 +65,7 @@ export default SearchCom;
 export const getServerSideProps: GetServerSideProps<any> = async ({ query }: any) => {
   const { search, page } = query;
   const res: SearchNewsResponse = await getSearchNews(search, page);
+  console.log(page);
 
   if (res.data) {
     return {
