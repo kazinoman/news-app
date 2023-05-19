@@ -30,7 +30,7 @@ const Header = (): JSX.Element => {
   const stringValue: string = selectedValue ?? "";
   return (
     <div
-      className="py-5 bg-[#333c50] text-white px-3"
+      className="py-5 bg-[#333c50] text-white px-3 "
       style={{
         backgroundColor: "#A9C9FF",
         backgroundImage: "radial-gradient( circle 815px at 23.4% -21.8%,  rgba(9,29,85,1) 0.2%, rgba(0,0,0,1) 100.2% )",

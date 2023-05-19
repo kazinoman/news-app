@@ -34,8 +34,8 @@ export default function Home({ newsArticles, totalCount }: BreakingNewsPageProps
       </Head>
 
       <main className="flex flex-col items-center gap-5 min-h-screen justify-between">
-        <div>
-          <p className="font-bold text-3xl mt-4" style={{ background: "linear-gradient(to right, #0D0DB3 22%, #C7366B 78%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+        <div className="flex flex-col items-center gap-5 min-h-screen justify-between">
+          <p className="font-bold text-3xl mt-4 align-middle mx-auto" style={{ background: "linear-gradient(to right, #0D0DB3 22%, #C7366B 78%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             Breaking News
           </p>
           {newsArticles.length ? <NewsArticleGrid articles={newsArticles || []} /> : <h1>Data not found.</h1>}

@@ -6,6 +6,7 @@ import { SearchNewsResponse, NewsArticle } from "@/models/newArticales";
 import Head from "next/head";
 import { NewsArticleGrid } from "@/components/newsArticles";
 import Pagination from "@/components/pagination";
+import { usePathname } from "next/navigation";
 
 interface SearchComProps {
   articles: NewsArticle[];
@@ -16,6 +17,7 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
   const [inputValue, setInputValue] = React.useState("everything");
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const router = useRouter();
+  const p = usePathname();
 
   // onChange
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,15 +27,15 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
   // Handle form submission with inputValue and push it into urlParams
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push({ pathname: "search", query: { search: inputValue } });
   };
 
   React.useEffect(() => {
-    router.push({ pathname: "search", query: { search: inputValue, page: currentPage } });
+    router.push({ pathname: p, query: { search: inputValue, page: currentPage } });
   }, [currentPage, inputValue]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    // router.push({ pathname: p, query: { page: currentPage } });
 
     console.log(page);
     // router.push({ pathname: "search", query: { search: inputValue, page } });
@@ -42,7 +44,7 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
   return (
     <>
       <Head>
-        <title>News search page</title>
+        <title key="title">Search news - Nextjs News App.</title>
       </Head>
 
       <div className="min-h-screen flex flex-col gap-6 items-center">
@@ -64,8 +66,8 @@ export default SearchCom;
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ query }: any) => {
   const { search, page } = query;
+  console.log(search, page);
   const res: SearchNewsResponse = await getSearchNews(search, page);
-  console.log(page);
 
   if (res.data) {
     return {
@@ -78,6 +80,7 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ query }: any
     return {
       props: {
         articles: [],
+        totalCount: 0,
       },
     };
   }
