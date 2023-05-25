@@ -55,6 +55,5 @@ export const getServerSideProps: GetServerSideProps = async ({ params, query }: 
       articles: res.data.articles,
       totalCount: res.data.totalResults,
     },
-    revalidate: 5 * 60,
   };
 };

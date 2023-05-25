@@ -17,5 +17,5 @@ export default function Pagination(props: PaginationProps) {
     props.onPageChange(page, pageSize);
   };
 
-  return <AntdPagination disabled={props.total === 0} defaultCurrent={current} total={props.total} onChange={handlePageChange} />;
+  return <AntdPagination disabled={props.total === 0} defaultCurrent={current} total={props.total} pageSize={21} onChange={handlePageChange} />;
 }

@@ -37,7 +37,7 @@ const SearchCom: React.FC<SearchComProps> = ({ articles, totalCount }: SearchCom
     setCurrentPage(page);
     // router.push({ pathname: p, query: { page: currentPage } });
 
-    console.log(page);
+    // console.log(page);
     // router.push({ pathname: "search", query: { search: inputValue, page } });
   };
 
