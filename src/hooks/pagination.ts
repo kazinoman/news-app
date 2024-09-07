@@ -10,7 +10,8 @@ type MyPaginationState = {
 };
 
 function usePagination(props: MyPaginationProps) {
-  const [currentPage, setCurrentPage] = useState<MyPaginationState["currentPage"]>(1);
+  const [currentPage, setCurrentPage] =
+    useState<MyPaginationState["currentPage"]>(1);
 
   const handlePageChange = (newPage: any) => {
     setCurrentPage(newPage);
@@ -20,3 +21,5 @@ function usePagination(props: MyPaginationProps) {
   return [currentPage, handlePageChange];
 }
 export default usePagination;
+
+//  add a comment
